@@ -42,7 +42,7 @@ export default function Home() {
   }
   async function buyNft(nft) {
     const web3Modal = new Web3Modal({
-      network: "mainnet",
+      network: "rinkeby",
       cacheProvider: true,
     });
     const connection = await web3Modal.connect()

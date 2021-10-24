@@ -16,7 +16,7 @@ export default function Home() {
   const [loaded, setLoaded] = useState('not-loaded')
   async function loadNFTs() {
     const web3Modal = new Web3Modal({
-      network: "mainnet",
+      network: "rinkeby",
       cacheProvider: true,
     });
     const connection = await web3Modal.connect()
