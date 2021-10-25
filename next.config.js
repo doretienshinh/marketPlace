@@ -1,3 +1,6 @@
 module.exports = {
-  reactStrictMode: true,
-}
+  env: {
+      PUBLIC_URL: '/marketPlace',
+      assetPrefix: 'https://doretienshinh.github.io/marketPlace',
+  }
+};

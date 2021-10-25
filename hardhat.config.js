@@ -16,15 +16,19 @@ task("accounts", "Prints the list of accounts", async () => {
 /**
  * @type import('hardhat/config').HardhatUserConfig
  */
- module.exports = {
+module.exports = {
   solidity: "0.8.3",
   paths: {
     artifacts: './artifacts',
+    sources: "./contracts",
+    tests: "./test",
+    cache: "./cache"
   },
   networks: {
+    defaultNetwork: "rinkeby",
     rinkeby: {
       url: "https://rinkeby.infura.io/v3/f960979a43b540ecb0657c7fd6d3d6ae", //Infura url with projectId
       accounts: ["882b8f02b16329199872cc0fa2930a7a1a503f99712a9072ae91936dbafe790e"] // add the account that will deploy the contract (private key)
-     },
-   }
+    },
+  }
 };

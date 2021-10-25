@@ -18,11 +18,17 @@ export default function Home() {
     loadNFTs()
   }, [])
   async function loadNFTs() {
-    const provider = new ethers.providers.JsonRpcProvider()
+    // const provider = new ethers.getDefaultProvider()
+    // const provider = new ethers.providers.JsonRpcProvider();
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    // provider = new ethers.providers.InfuraProvider("homestead", {
+    //   projectId: "f960979a43b540ecb0657c7fd6d3d6ae",
+    //   projectSecret: "ff9700a1b653427c985415e72b660722"
+    // });
     const tokenContract = new ethers.Contract(nftaddress, NFT.abi, provider)
     const marketContract = new ethers.Contract(nftmarketaddress, Market.abi, provider)
     const data = await marketContract.fetchMarketItems()
-    
+
     const items = await Promise.all(data.map(async i => {
       const tokenUri = await tokenContract.tokenURI(i.tokenId)
       const meta = await axios.get(tokenUri)
@@ -38,7 +44,7 @@ export default function Home() {
     }))
     console.log('items: ', items)
     setNfts(items)
-    setLoaded('loaded') 
+    setLoaded('loaded')
   }
   async function buyNft(nft) {
     const web3Modal = new Web3Modal({
@@ -49,11 +55,11 @@ export default function Home() {
     const provider = new ethers.providers.Web3Provider(connection)
     const signer = provider.getSigner()
     const contract = new ethers.Contract(nftmarketaddress, Market.abi, signer)
-    
+
     const price = web3.utils.toWei(nft.price.toString(), 'ether');
 
     console.log('price: ', price);
-    
+
     const transaction = await contract.createMarketSale(nftaddress, nft.tokenId, {
       value: price
     })
